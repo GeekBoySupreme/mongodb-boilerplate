@@ -27,38 +27,6 @@ router.get("/month", async (req, res) => {
     }
 });
 
-//Read Yearly Logs
-router.get("/year", async (req, res) => {
-    try {
-        const readLogs = await Log.find({ "year" : req.query.year });
-        res.json(readLogs);
-    }
-    catch(err) {
-        res.json({ message : err.name });
-    }
-});
-
-//Read Logs by ID
-router.get("/id", async (req, res) => {
-    try {
-        const readLogs = await Log.find({ "id" : req.query.id });
-        res.json(readLogs);
-    }
-    catch(err) {
-        res.json({ message : err.name });
-    }
-});
-
-//Read Logs by Class
-router.get("/class", async (req, res) => {
-    try {
-        const readLogs = await Log.find({ "class" : req.query.id });
-        res.json(readLogs);
-    }
-    catch(err) {
-        res.json({ message : err.name });
-    }
-});
 
 
 
