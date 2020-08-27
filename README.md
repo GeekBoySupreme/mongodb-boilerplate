@@ -5,7 +5,7 @@ Boilerplate Code to start building an App connected to a MongoDB Instance.
 - <a href="https://docs.mongodb.com/manual/introduction/">Getting Started with MongoDB</a>
 
 - Clone this repository.
-- Install dependencies.
+- Install dependencies - 
 `npm install`
-- Run the Server.
+- Run the Server - 
 `node app`
