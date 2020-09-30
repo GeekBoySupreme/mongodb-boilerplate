@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
         res.json(readLogs);
     }
     catch(err) {
-        res.json({ message : err.name });
+        res.status(500).json({ message : err.name });
     }
 });
 
@@ -47,11 +47,18 @@ router.post('/', async (req, res) => {
 
     try {
         const saveLog = await log.save()
-        res.json(saveLog);
+        res.status(201).json(saveLog);
     }
     catch(err) {
-        res.json({ message : err.name });
+        res.status(400).json({ message : err.name });
     }
 })
-
+router.delete("/month",async (req, res) => {
+    try {
+        await res.log.deleteOne();
+        res.json({ message: "User has been deleted" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 module.exports = router;
