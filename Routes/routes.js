@@ -53,12 +53,28 @@ router.post('/', async (req, res) => {
         res.status(400).json({ message : err.name });
     }
 })
-router.delete("/month",async (req, res) => {
+// Edit One Route PUT version
+router.put("/put/:id", async (req, res) => {
     try {
-        await res.log.deleteOne();
-        res.json({ message: "User has been deleted" });
+        const updatedLog = await res.log.set(req.body);
+        res.json(updatedLog);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(400).json({ message: err.message });
+    }
+});
+// Edit One Route PATCH version
+router.patch("/patch/:id", async (req, res) => {
+    if (req.body.firstname != null) {
+        res.log.firstname = req.body.firstname;
+    }
+    if (req.body.lastname != null) {
+        res.log.lastname = req.body.lastname;
+    }
+    try {
+        const updatedLog = await res.log.save();
+        res.json(updatedLog);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
     }
 });
 module.exports = router;
