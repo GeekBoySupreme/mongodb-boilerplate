@@ -4,26 +4,24 @@ const Log = require("../models/astroLogs")
 
 
 //Read All Click Logs from Server
-router.get("/", async (req, res) => {
+router.get("/", async(req, res) => {
     try {
         const readLogs = await Log.find();
         res.json(readLogs);
-    }
-    catch(err) {
-        res.json({ message : err.name });
+    } catch (err) {
+        res.json({ message: err.name });
     }
 });
 
 
 
 //Read Monthly Logs
-router.get("/month", async (req, res) => {
+router.get("/month", async(req, res) => {
     try {
-        const readLogs = await Log.find({ "month" : req.query.month });
+        const readLogs = await Log.find({ "month": req.query.month });
         res.json(readLogs);
-    }
-    catch(err) {
-        res.json({ message : err.name });
+    } catch (err) {
+        res.json({ message: err.name });
     }
 });
 
@@ -31,7 +29,7 @@ router.get("/month", async (req, res) => {
 
 
 //Send Click Logs to Server
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
     const log = new Log({
         action: req.body.action,
         id: req.body.id,
@@ -48,10 +46,30 @@ router.post('/', async (req, res) => {
     try {
         const saveLog = await log.save()
         res.json(saveLog);
+    } catch (err) {
+        res.json({ message: err.name });
     }
-    catch(err) {
-        res.json({ message : err.name });
+});
+
+router.get('/delete/:id', async(req, res) => {
+    try {
+        const LID = req.params.id;
+        Log.findOneAndDelete({ id: LID })
+            .then(() => {
+                res.status(200).json({
+                    message: "Log deleted successfully"
+                });
+            })
+            .catch(err => {
+                res.status(500).json({
+                    message: err.name
+                });
+            })
+    } catch (err) {
+        res.status(500).json({
+            message: err.name
+        });
     }
-})
+});
 
 module.exports = router;
