@@ -27,7 +27,19 @@ router.get("/month", async (req, res) => {
     }
 });
 
-
+router.put("/update" ,async (req,res) => {
+    Log.findOneAndUpdate({_id:req.body._id} ,req.body,(err,log) => {
+        if(err){
+            res.json({
+                message:"error occured"
+            })
+        }else{
+            res.json({
+                message:log
+            })
+        }
+    } )
+})
 
 
 //Send Click Logs to Server
